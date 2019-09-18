@@ -51,6 +51,17 @@ impl<'de> Deserialize<'de> for ! {
     }
 }
 
+
+#[cfg(not(feature = "unstable"))]
+impl<'de> Deserialize<'de> for std::convert::Infallible {
+    fn deserialize<D>(_deserializer: D) -> Result<Self, D::Error>
+        where
+            D: Deserializer<'de>,
+    {
+        Err(Error::custom("cannot deserialize `Infallible`"))
+    }
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 
 struct BoolVisitor;

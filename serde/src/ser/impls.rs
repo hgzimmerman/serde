@@ -301,6 +301,17 @@ impl Serialize for ! {
     }
 }
 
+
+#[cfg(not(feature = "unstable"))]
+impl Serialize for std::convert::Infallible {
+    fn serialize<S>(&self, _serializer: S) -> Result<S::Ok, S::Error>
+        where
+            S: Serializer,
+    {
+        unimplemented!()
+    }
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 
 macro_rules! tuple_impls {
